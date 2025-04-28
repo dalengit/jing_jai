@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, useCallback, memo } from 'react'
 
 interface FormData {
   name: string
@@ -17,13 +17,18 @@ const ContactForm: React.FC = () => {
 
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }, [])
+
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault()
     // Here you would typically handle the form submission to your backend
     setFormStatus('success')
     setFormData({ name: '', email: '', phone: '', message: '' })
     setTimeout(() => setFormStatus('idle'), 3000)
-  }
+  }, [])
 
   return (
     <div className="bg-white rounded-lg p-8 shadow-md">
@@ -39,12 +44,11 @@ const ContactForm: React.FC = () => {
           <input
             type="text"
             id="name"
+            name="name"
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-thai-gold focus:border-thai-gold"
             value={formData.name}
-            onChange={(e) =>
-              setFormData({ ...formData, name: e.target.value })
-            }
+            onChange={handleInputChange}
           />
         </div>
 
@@ -58,12 +62,11 @@ const ContactForm: React.FC = () => {
           <input
             type="email"
             id="email"
+            name="email"
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-thai-gold focus:border-thai-gold"
             value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
+            onChange={handleInputChange}
           />
         </div>
 
@@ -77,11 +80,10 @@ const ContactForm: React.FC = () => {
           <input
             type="tel"
             id="phone"
+            name="phone"
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-thai-gold focus:border-thai-gold"
             value={formData.phone}
-            onChange={(e) =>
-              setFormData({ ...formData, phone: e.target.value })
-            }
+            onChange={handleInputChange}
           />
         </div>
 
@@ -94,13 +96,12 @@ const ContactForm: React.FC = () => {
           </label>
           <textarea
             id="message"
+            name="message"
             required
             rows={4}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-thai-gold focus:border-thai-gold"
             value={formData.message}
-            onChange={(e) =>
-              setFormData({ ...formData, message: e.target.value })
-            }
+            onChange={handleInputChange}
           />
         </div>
 
@@ -127,4 +128,4 @@ const ContactForm: React.FC = () => {
   )
 }
 
-export default ContactForm 
+export default memo(ContactForm) 

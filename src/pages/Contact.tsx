@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import ContactInfo from '../components/contact/ContactInfo'
-import ContactForm from '../components/contact/ContactForm'
+
+const ContactInfo = lazy(() => import('../components/contact/ContactInfo'))
+const ContactForm = lazy(() => import('../components/contact/ContactForm'))
 
 const Contact = () => {
   return (
@@ -16,8 +17,10 @@ const Contact = () => {
           <h1 className="heading text-center mb-12">Contact Us</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <ContactInfo />
-            <ContactForm />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ContactInfo />
+              <ContactForm />
+            </Suspense>
           </div>
         </motion.div>
       </div>

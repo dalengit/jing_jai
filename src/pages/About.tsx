@@ -1,46 +1,46 @@
-import React from 'react'
+import React, { lazy, Suspense, memo } from 'react'
 import { motion } from 'framer-motion'
 
-const About = () => {
-  const teamMembers = [
-    {
-      name: 'Chef Somchai',
-      role: 'Head Chef',
-      bio: 'With over 20 years of experience in traditional Thai cuisine, Chef Somchai brings authentic flavors from his hometown in Chiang Mai.',
-      image: '/images/chef-somchai.jpg'
-    },
-    {
-      name: 'Nong',
-      role: 'Sous Chef',
-      bio: 'Specializing in street food and modern Thai fusion, Nong adds a creative twist to our traditional dishes.',
-      image: '/images/chef-nong.jpg'
-    },
-    {
-      name: 'Pim',
-      role: 'Restaurant Manager',
-      bio: 'Pim ensures every guest experiences the warm hospitality that Thailand is known for.',
-      image: '/images/pim.jpg'
-    }
-  ]
+const teamMembers = [
+  {
+    name: 'Chef Somchai',
+    role: 'Head Chef',
+    bio: 'With over 20 years of experience in traditional Thai cuisine, Chef Somchai brings authentic flavors from his hometown in Chiang Mai.',
+    image: '/images/chef-somchai.jpg'
+  },
+  {
+    name: 'Nong',
+    role: 'Sous Chef',
+    bio: 'Specializing in street food and modern Thai fusion, Nong adds a creative twist to our traditional dishes.',
+    image: '/images/chef-nong.jpg'
+  },
+  {
+    name: 'Pim',
+    role: 'Restaurant Manager',
+    bio: 'Pim ensures every guest experiences the warm hospitality that Thailand is known for.',
+    image: '/images/pim.jpg'
+  }
+]
 
-  const values = [
-    {
-      title: 'Authenticity',
-      description: 'We stay true to traditional Thai recipes and cooking techniques, using authentic ingredients sourced directly from Thailand.',
-      icon: '🌿'
-    },
-    {
-      title: 'Quality',
-      description: 'Only the freshest ingredients make it to our kitchen. We maintain the highest standards in food preparation and service.',
-      icon: '✨'
-    },
-    {
-      title: 'Community',
-      description: 'We believe in building strong relationships with our customers and supporting our local community.',
-      icon: '🤝'
-    }
-  ]
+const values = [
+  {
+    title: 'Authenticity',
+    description: 'We stay true to traditional Thai recipes and cooking techniques, using authentic ingredients sourced directly from Thailand.',
+    icon: '🌿'
+  },
+  {
+    title: 'Quality',
+    description: 'Only the freshest ingredients make it to our kitchen. We maintain the highest standards in food preparation and service.',
+    icon: '✨'
+  },
+  {
+    title: 'Community',
+    description: 'We believe in building strong relationships with our customers and supporting our local community.',
+    icon: '🤝'
+  }
+]
 
+const About = memo(() => {
   return (
     <div className="bg-thai-cream min-h-screen">
       {/* Hero Section */}
@@ -91,6 +91,7 @@ const About = () => {
                   src="/images/restaurant-interior.jpg"
                   alt="Restaurant Interior"
                   className="rounded-lg shadow-lg w-full"
+                  loading="lazy"
                 />
               </motion.div>
               <motion.div
@@ -144,6 +145,7 @@ const About = () => {
                   src={member.image}
                   alt={member.name}
                   className="w-full h-64 object-cover"
+                  loading="lazy"
                 />
                 <div className="p-6">
                   <h3 className="text-xl font-display font-bold text-thai-earth">
@@ -196,6 +198,8 @@ const About = () => {
       </section>
     </div>
   )
-}
+})
+
+About.displayName = 'About'
 
 export default About 

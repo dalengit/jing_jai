@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState, useCallback, memo } from 'react'
 import { motion } from 'framer-motion'
 
 const menuCategories = [
@@ -45,8 +45,12 @@ const menuItems = {
   ],
 }
 
-const Menu = () => {
+const Menu = memo(() => {
   const [activeCategory, setActiveCategory] = useState('appetizers')
+
+  const handleCategoryChange = useCallback((categoryId: string) => {
+    setActiveCategory(categoryId)
+  }, [])
 
   return (
     <div className="bg-thai-cream min-h-screen py-12">
@@ -64,7 +68,7 @@ const Menu = () => {
           {menuCategories.map((category) => (
             <button
               key={category.id}
-              onClick={() => setActiveCategory(category.id)}
+              onClick={() => handleCategoryChange(category.id)}
               className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
                 activeCategory === category.id
                   ? 'bg-thai-gold text-white'
@@ -114,6 +118,8 @@ const Menu = () => {
       </div>
     </div>
   )
-}
+})
+
+Menu.displayName = 'Menu'
 
 export default Menu 

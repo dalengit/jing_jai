@@ -1,16 +1,19 @@
-import React from 'react'
-import HeroSection from '../components/home/HeroSection'
-import FeaturedSection from '../components/home/FeaturedSection'
-import CTASection from '../components/home/CTASection'
+import React, { lazy, Suspense, memo } from 'react'
+
+const HeroSection = lazy(() => import('../components/home/HeroSection'))
+const FeaturedSection = lazy(() => import('../components/home/FeaturedSection'))
+const CTASection = lazy(() => import('../components/home/CTASection'))
 
 const Home: React.FC = () => {
   return (
     <div className="home-container">
-      <HeroSection />
-      <FeaturedSection />
-      <CTASection />
+      <Suspense fallback={<div>Loading...</div>}>
+        <HeroSection />
+        <FeaturedSection />
+        <CTASection />
+      </Suspense>
     </div>
   )
 }
 
-export default Home 
+export default memo(Home) 
