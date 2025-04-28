@@ -1,0 +1,130 @@
+import React, { useState, FormEvent } from 'react'
+
+interface FormData {
+  name: string
+  email: string
+  phone: string
+  message: string
+}
+
+const ContactForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  })
+
+  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    // Here you would typically handle the form submission to your backend
+    setFormStatus('success')
+    setFormData({ name: '', email: '', phone: '', message: '' })
+    setTimeout(() => setFormStatus('idle'), 3000)
+  }
+
+  return (
+    <div className="bg-white rounded-lg p-8 shadow-md">
+      <h2 className="subheading mb-6">Send Us a Message</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-thai-gold focus:border-thai-gold"
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({ ...formData, name: e.target.value })
+            }
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-thai-gold focus:border-thai-gold"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="phone"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Phone (optional)
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-thai-gold focus:border-thai-gold"
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Message
+          </label>
+          <textarea
+            id="message"
+            required
+            rows={4}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-thai-gold focus:border-thai-gold"
+            value={formData.message}
+            onChange={(e) =>
+              setFormData({ ...formData, message: e.target.value })
+            }
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full btn btn-primary"
+        >
+          Send Message
+        </button>
+
+        {formStatus === 'success' && (
+          <p className="text-green-600 text-center">
+            Thank you for your message! We'll get back to you soon.
+          </p>
+        )}
+
+        {formStatus === 'error' && (
+          <p className="text-red-600 text-center">
+            There was an error sending your message. Please try again.
+          </p>
+        )}
+      </form>
+    </div>
+  )
+}
+
+export default ContactForm 
