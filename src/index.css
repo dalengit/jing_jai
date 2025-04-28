@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&family=Chivo:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: 'Noto Sans Thai', sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-ting-light text-ting-dark font-sans antialiased min-h-screen;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-md hover:shadow-lg;
+  }
+  
+  .btn-primary {
+    @apply bg-ting-burgundy text-white hover:bg-ting-burgundy/90 focus:ring-ting-burgundy/50;
+  }
+  
+  .btn-secondary {
+    @apply bg-ting-rose text-white hover:bg-ting-rose/90 focus:ring-ting-rose/50;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-ting-burgundy text-ting-burgundy hover:bg-ting-burgundy hover:text-white focus:ring-ting-burgundy/50;
+  }
+  
+  .nav-link {
+    @apply text-ting-burgundy/80 hover:text-ting-burgundy font-medium transition-all duration-300 relative px-3 py-2;
+    &::after {
+      content: '';
+      @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-ting-burgundy transition-all duration-300 rounded-full opacity-0;
+    }
+    &:hover::after {
+      @apply w-4/5 opacity-100;
+    }
+    &.active::after {
+      @apply w-4/5 opacity-100;
+    }
+  }
+  
+  .nav-link-mobile {
+    @apply text-ting-burgundy/80 hover:text-ting-burgundy font-medium transition-colors duration-300;
+  }
+  
+  .section {
+    @apply py-16 md:py-24 relative overflow-hidden;
+  }
+  
+  .section-pattern {
+    @apply before:absolute before:inset-0 before:bg-thai-pattern before:opacity-5;
+  }
+  
+  .heading {
+    @apply font-display text-4xl md:text-5xl font-bold text-ting-burgundy leading-tight;
+  }
+  
+  .subheading {
+    @apply font-display text-2xl md:text-3xl font-semibold text-ting-rose leading-relaxed;
+  }
+  
+  .card {
+    @apply bg-white rounded-3xl shadow-warm p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .input {
+    @apply w-full px-4 py-2 border border-ting-rose/20 rounded-lg focus:ring-2 focus:ring-ting-burgundy/50 focus:border-ting-burgundy transition-colors duration-200;
+  }
+  
+  .label {
+    @apply block text-sm font-medium text-ting-dark mb-1;
+  }
+
+  .curved-divider {
+    @apply absolute left-0 right-0 h-24 overflow-hidden;
+  }
+
+  .curved-divider-top {
+    @apply curved-divider -top-24;
+  }
+
+  .curved-divider-bottom {
+    @apply curved-divider -bottom-24 rotate-180;
+  }
+
+  .blob-shape {
+    @apply absolute blur-3xl opacity-20 rounded-full;
+  }
+
+  .handwritten {
+    font-family: "Chivo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    @apply text-xl;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(139, 30, 63, 0.1);
+  }
+  
+  .bg-gradient {
+    @apply bg-gradient-to-r from-ting-burgundy to-ting-rose;
+  }
+
+  .bg-gradient-soft {
+    @apply bg-gradient-to-r from-ting-pink/20 to-ting-rose/20;
+  }
+}
