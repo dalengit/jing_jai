@@ -7,11 +7,9 @@ const CTASection = lazy(() => import('../components/home/CTASection'))
 const Home: React.FC = () => {
   return (
     <div className="home-container">
-      <Suspense fallback={<div>Loading...</div>}>
         <HeroSection />
         <FeaturedSection />
         <CTASection />
-      </Suspense>
     </div>
   )
 }
